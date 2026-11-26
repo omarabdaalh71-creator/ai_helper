@@ -1,0 +1,10 @@
+<!doctype html><html dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>مساعد</title>
+<style>body{margin:0;font-family:sans-serif;background:#0f172a;color:#eee;display:flex;flex-direction:column;height:100vh}#l{flex:1;overflow:auto;padding:12px}.m{margin:8px 0;padding:10px;border-radius:12px;background:#1e293b;white-space:pre-wrap}.u{background:#2563eb}form{display:flex;gap:6px;padding:8px}input{flex:1;padding:12px;font-size:16px}</style></head><body>
+<div id="l"><div class="m">أهلاً! اسألني في أي مجال</div></div>
+<form id="f"><input id="q" placeholder="اكتب سؤالك"><button>ارسل</button></form>
+<script>
+var h=[],l=document.getElementById("l"),q=document.getElementById("q");
+function a(t,c){var d=document.createElement("div");d.className="m "+(c||"");d.textContent=t;l.appendChild(d);l.scrollTop=l.scrollHeight;return d}
+document.getElementById("f").onsubmit=async function(e){e.preventDefault();var t=q.value.trim();if(!t)return;q.value="";a(t,"u");h.push({role:"user",content:t});var w=a("...");
+try{var r=await fetch("/api/ask",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:h})});var j=await r.json();var x=j.reply||j.error;w.textContent=x;h.push({role:"assistant",content:x})}catch(z){w.textContent="Error"}}
+</script></body></html>
