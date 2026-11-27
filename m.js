@@ -1,0 +1,3 @@
+var b=document.createElement("button"),y=document.createElement("iframe"),on=0,c=document.createElement("div"),F=document.getElementById("f"),Q=document.getElementById("q");b.textContent="♪";b.style.cssText="position:fixed;top:14px;left:14px;z-index:9;width:40px;height:40px;border-radius:50%;border:0;background:#ffffff25;color:#fff;font-size:20px";
+y.allow="autoplay;encrypted-media";y.style.cssText="position:fixed;top:64px;left:14px;z-index:9;width:200px;height:113px;border:0;border-radius:12px;display:none";
+b.onclick=function(){on=!on;y.style.display=on?"block":"none";if(on&&!y.src)y.src="https://www
