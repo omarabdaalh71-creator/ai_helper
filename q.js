@@ -1,0 +1,6 @@
+setTimeout(function(){var T,S,B;var Q=document.getElementById("q");T=document.createElement("textarea");T.id="q";T.rows=1;T.placeholder=Q.placeholder;Q.parentNode.replaceChild(T,Q);window.Q=T;
+T.oninput=function(){T.style.height="auto";T.style.height=Math.min(T.scrollHeight,140)+"px"};
+F.onsubmit=function(e){e.preventDefault();var t=T.value.trim();if(!t)return;T.value="";T.style.height="auto";send(t)};
+S=document.createElement("div");B=document.createElement("button");S.id="sb";B.type="button";B.textContent="☰";B.style.cssText="width:36px;height:36px;border-radius:50%;border:0;background:#ffffff25;color:#fff";
+function rs(){S.innerHTML="";var n=document.createElement("button");n.textContent="+ محادثة جديدة";n.onclick=function(){cur=null;show();S.className=""};S.appendChild(n);db.forEach(function(c){var d=document.createElement("div"),a=document.createElement("button"),x=document.createElement("button");a.textContent=c.title;a.style.flex=1;a.onclick=function(){cur=c;show();S.className=""};x.textContent="✕";x.onclick=function(){db.splice(db.indexOf(c),1);if(cur==c){cur=null;show()}save();rs()};d.appendChild(a);d.appendChild(x);S.appendChild(d)})}
+B.onclick=function(){rs();S.className=S.className?"":"o"};document.body.appendChild(S);(window.W||document.querySelector("header")).appendChild(B)},700);
