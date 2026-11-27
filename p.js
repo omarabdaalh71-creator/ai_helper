@@ -1,0 +1,14 @@
+var L=document.getElementById("l"),F=document.getElementById("f"),K="pc",db=JSON.parse(localStorage.getItem(K)||"[]"),cur=null,busy=0,st=document.createElement("style");
+st.textContent=".a{align-self:stretch;max-width:100%;background:none;padding:6px 4px}pre{background:#0006;padding:10px;border-radius:10px;direction:ltr;text-align:left;overflow:auto;margin:6px 0}code{background:#0006;padding:1px 5px;border-radius:5px}textarea{flex:1;padding:13px 16px;font:16px system-ui;border-radius:24px;border:1px solid #fff3;background:#ffffff14;color:#fff;outline:0;resize:none;max-height:140px}#sb{position:fixed;top:0;bottom:0;right:0;width:78%;max-width:300px;background:#0e1430;z-index:20;padding:14px;overflow:auto;transform:translateX(100%);transition:.25s}#sb.o{transform:none}#sb div{display:flex;gap:6px;margin:6px 0}#sb button{border:0;border-radius:10px;padding:10px;background:#ffffff1a;color:#fff;font-size:14px}.r{align-self:flex-start;border:0;background:#ffffff1a;color:#fff;border-radius:14px;padding:6px 12px}";
+document.head.appendChild(st);
+function save(){localStorage.setItem(K,JSON.stringify(db))}
+function md(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/```(?:\w*\n)?([\s\S]*?)```/g,"<pre>$1</pre>").replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>").replace(/^[-*] (.+)$/gm,"• $1")}
+function add(r,t){var d=document.createElement("div");d.className="m "+(r=="user"?"u":"a");if(r=="user")d.textContent=t;else d.innerHTML=md(t);L.appendChild(d);L.scrollTop=L.scrollHeight;return d}
+function show(){L.innerHTML="";add("assistant","أهلاً بيك! اسألني أي سؤال");if(cur)cur.msgs.forEach(function(m){add(m.role,m.content)})}
+function rg(){var b=document.createElement("button");b.className="r";b.textContent="↻";b.onclick=function(){var u=cur.msgs[cur.msgs.length-2].content;cur.msgs.splice(-2);show();send(u)};L.appendChild(b);L.scrollTop=L.scrollHeight}
+function ty(d,t){var w=t.split(/(\s+)/),i=0,s="",v=setInterval(function(){s+=w[i++]||"";d.innerHTML=md(s);L.scrollTop=L.scrollHeight;if(i>=w.length){clearInterval(v);busy=0;rg()}},30)}
+async function send(t){if(busy)return;busy=1;var o=L.querySelector(".r");if(o)o.remove();if(!cur){cur={id:Date.now(),title:t.slice(0,30),msgs:[]};db.unshift(cur)}
+cur.msgs.push({role:"user",content:t});save();add("user",t);var w=add("assistant","");w.innerHTML="<div class=t><span></span><span></span><span></span></div>";var x,ok=1;
+try{var r=await fetch("/api/ask",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:cur.msgs})}),j=await r.json();x=j.reply;if(!x){ok=0;x=j.error||"حصلت مشكلة"}}catch(e){ok=0;x="حصلت مشكلة"}
+if(!ok){cur.msgs.pop();save();w.textContent=x;busy=0;return}
+cur.msgs.push({role:"assistant",content:x});save();ty(w,x)}
