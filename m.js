@@ -1,3 +1,0 @@
-var b=document.createElement("button"),on=0,f;b.textContent="♪";b.style.cssText="position:fixed;top:14px;left:14px;z-index:9;width:40px;height:40px;border-radius:50%;border:0;background:#ffffff25;color:#fff;font-size:20px";
-b.onclick=function(){if(!on){f=document.createElement("iframe");f.allow="autoplay";f.style.cssText="position:fixed;width:1px;height:1px;opacity:0;border:0";f.src="https://www.youtube.com/embed/GNNr2ePjJ_k?autoplay=1&loop=1&playlist=GNNr2ePjJ_k";document.body.appendChild(f);on=1;b.textContent="❚❚"}else{f.remove();on=0;b.textContent="♪"}};
-document.body.appendChild(b);document.addEventListener("click",function(){if(!on)b.click()},{once:true});
