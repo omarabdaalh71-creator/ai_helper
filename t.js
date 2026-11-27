@@ -1,0 +1,3 @@
+function bl(d){var w=document.createTreeWalker(d,4),x,l;while(x=w.nextNode())l=x;if(!l||l.length<2)return;var r=l.splitText(l.length-Math.min(l.length,12)),p=document.createElement("span");p.className="nb";l.parentNode.insertBefore(p,r);p.appendChild(r)}
+var s2=document.createElement("style");s2.textContent=".nb{animation:nb .45s both}@keyframes nb{from{filter:blur(7px);opacity:0}to{filter:none;opacity:1}}";document.head.appendChild(s2);
+var iv=setInterval(function(){if(window.ty&&!window.ty.n){window.ty=function(d,t){var w=t.split(/(\s+)/),i=0,s="",v=setInterval(function(){s+=(w[i++]||"")+(w[i++]||"");d.innerHTML=md(s);bl(d);L.scrollTop=L.scrollHeight;if(i>=w.length){clearInterval(v);d.innerHTML=md(s);busy=0;rg()}},16)};window.ty.n=1;clearInterval(iv)}},40);
